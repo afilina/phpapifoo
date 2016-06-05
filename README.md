@@ -100,7 +100,7 @@ Input for POST, PUT and PATCH operations should be provided using JSON directly 
 
 ### CakePHP 3.2
 
-This is an example of a controller and a table. Full demo project coming soon in a separate GitHub repo.
+This is an example of a controller and a table. Demo project: [afilina/cakeapifoo](https://github.com/afilina/cakeapifoo)
 
 ```
 use Cake\ORM\TableRegistry;
