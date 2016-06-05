@@ -4,16 +4,20 @@ PHP >=5.6
 
 Use this package to easily implement RESTful APIs in any framework. Currently, only CakePHP 3.2 is supported, but I'll be adding adapters for other frameworks soon.
 
+You can install this file via [Composer](https://getcomposer.org/doc/00-intro.md):
+```
+composer require afilina/phpapifoo dev-master
+```
+
 ## How is this different from framework-specific plugins?
 
 The idea is for you to be able to use your framework of choice. This package doesn't do too much magic, meaning that it's as simple as instantiating a few classes to offload some of the boilerplate, but without creating complicated abstraction layers. It also does a good job at keeping all your application logic right where you would expect it, incontrollers and repositories, as opposed to configuration files and listeners.
 
 The examples will speak for themselves.
 
-You can install this file via [Composer](https://getcomposer.org/doc/00-intro.md):
-```
-composer require afilina/phpapifoo dev-master
-```
+## How is this different from code generators?
+
+The idea is to make it simple to drop the functionality into any codebase. This can be particularly useful with legacy. You also don't have to learn any Domain Specific Languages. You only need to know PHP and your favorite framework. However, I believe that there could be value in generating REST API code while leveraging this library as a gateway to all the frameworks.
 
 ## Usage
 
