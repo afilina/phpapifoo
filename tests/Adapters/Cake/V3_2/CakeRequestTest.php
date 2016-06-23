@@ -12,7 +12,12 @@ class CakeRequestTest extends \PHPUnit_Framework_TestCase
     {
         $request = new Request();
         $request->query = ['name' => 'test'];
-        $requestWrapper = $this->getMock('\ApiFoo\Adapters\Cake\V3_2\CakeRequest', null, [$request]);
+
+        $requestWrapper = $this->getMockBuilder('\ApiFoo\Adapters\Cake\V3_2\CakeRequest')
+            ->setMethods(null)
+            ->setConstructorArgs([$request])
+            ->getMock();
+
         $params = $requestWrapper->getQueryParams();
         $this->assertEquals(['name' => 'test'], $params);
     }
@@ -21,7 +26,12 @@ class CakeRequestTest extends \PHPUnit_Framework_TestCase
     {
         $request = new Request();
         $request->data = ['name' => 'test'];
-        $requestWrapper = $this->getMock('\ApiFoo\Adapters\Cake\V3_2\CakeRequest', null, [$request]);
+
+            $requestWrapper = $this->getMockBuilder('\ApiFoo\Adapters\Cake\V3_2\CakeRequest')
+            ->setMethods(null)
+            ->setConstructorArgs([$request])
+            ->getMock();
+
         $params = $requestWrapper->getParsedBody();
         $this->assertEquals(['name' => 'test'], $params);
     }
@@ -30,7 +40,12 @@ class CakeRequestTest extends \PHPUnit_Framework_TestCase
     {
         $request = new Request();
         $request->files = ['file' => ['tmp_name' => 'file.txt']];
-        $requestWrapper = $this->getMock('\ApiFoo\Adapters\Cake\V3_2\CakeRequest', null, [$request]);
+
+        $requestWrapper = $this->getMockBuilder('\ApiFoo\Adapters\Cake\V3_2\CakeRequest')
+            ->setMethods(null)
+            ->setConstructorArgs([$request])
+            ->getMock();
+        
         $params = $requestWrapper->getUploadedFiles();
         $this->assertEquals(['file' => ['tmp_name' => 'file.txt']], $params);
     }

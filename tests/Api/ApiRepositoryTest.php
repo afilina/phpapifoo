@@ -56,7 +56,7 @@ class ApiRepositoryTest extends \PHPUnit_Framework_TestCase
             'id' => '',
         ];
 
-        $this->repository->expects($this->never())->method('addNIdFilter');
+        $this->repository->expects($this->never())->method('addIdFilter');
 
         $apiQuery->addFilterCriteria($this->query, $this->repository, $filters);
     }

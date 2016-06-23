@@ -13,7 +13,7 @@ class CakeOrmTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $connection = new \Cake\Database\Connection([
-            'driver' => '\Cake\Database\Driver\SQLite',
+            'driver' => '\Cake\Database\Driver\Sqlite',
             'database' => ':memory:',
             'init' => [
                 'CREATE TABLE IF NOT EXISTS table_name (id INT, name VARCHAR)',
