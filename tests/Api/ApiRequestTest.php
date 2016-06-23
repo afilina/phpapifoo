@@ -8,7 +8,8 @@ class ApiRequestTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->request = $this->getMock('\Psr\Http\Message\ServerRequestInterface');
+        $this->request = $this->getMockBuilder('\Psr\Http\Message\ServerRequestInterface')
+            ->getMock();
     }
 
     public function testConstructor_WithSortDescending_ExtractsOrder()

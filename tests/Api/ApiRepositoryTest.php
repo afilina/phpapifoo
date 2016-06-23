@@ -12,14 +12,28 @@ class ApiRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->orm = $this->getMock('\ApiFoo\Interfaces\OrmInterface');
-        $this->repository = $this->getMock('Table', ['addNameFilter', 'addIdFilter', 'addNameSort', 'addIdSort'], [], 'TestRepository', false);
-        $this->query = $this->getMock('Query', null, [], '', false);
+        $this->orm = $this->getMockBuilder('\ApiFoo\Interfaces\OrmInterface')
+            ->getMock();
+
+        $this->repository = $this->getMockBuilder('Table')
+            ->setMethods(['addNameFilter', 'addIdFilter', 'addNameSort', 'addIdSort'])
+            ->setMockClassName('TestRepository')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->query = $this->getMockBuilder('Query')
+            ->setMethods(null)
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 
     public function testAddFilterCriteria_WithFilters_CallsFilterMethods()
     {
-        $apiQuery = $this->getMock('\ApiFoo\Api\ApiRepository', null, [], '', false);
+        $apiQuery = $this->getMockBuilder('\ApiFoo\Api\ApiRepository')
+            ->setMethods(null)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $filters = [
             'name' => 'A',
             'id' => 1,
@@ -33,7 +47,11 @@ class ApiRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testAddFilterCriteria_WithEmptyFilter_SkipFilter()
     {
-        $apiQuery = $this->getMock('\ApiFoo\Api\ApiRepository', null, [], '', false);
+        $apiQuery = $this->getMockBuilder('\ApiFoo\Api\ApiRepository')
+            ->setMethods(null)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $filters = [
             'id' => '',
         ];
@@ -45,7 +63,11 @@ class ApiRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testAddSortCriteria_WithSorts_CallsSortMethods()
     {
-        $apiQuery = $this->getMock('\ApiFoo\Api\ApiRepository', null, [], '', false);
+        $apiQuery = $this->getMockBuilder('\ApiFoo\Api\ApiRepository')
+            ->setMethods(null)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $sort = [
             'name' => '-',
             'id' => '',
@@ -59,7 +81,10 @@ class ApiRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testAddPageCriteria_WithPageSize_CallsPagination()
     {
-        $apiQuery = $this->getMock('\ApiFoo\Api\ApiRepository', null, [$this->orm], '', true);
+        $apiQuery = $this->getMockBuilder('\ApiFoo\Api\ApiRepository')
+            ->setMethods(null)
+            ->setConstructorArgs([$this->orm])
+            ->getMock();
 
         $pageSize = 5;
         $pageNumber = 2;
@@ -70,7 +95,10 @@ class ApiRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testAddPageCriteria_WithPageSizeZero_DoesntCallPagination()
     {
-        $apiQuery = $this->getMock('\ApiFoo\Api\ApiRepository', null, [$this->orm], '', true);
+        $apiQuery = $this->getMockBuilder('\ApiFoo\Api\ApiRepository')
+            ->setMethods(null)
+            ->setConstructorArgs([$this->orm])
+            ->getMock();
 
         $pageSize = 0;
         $pageNumber = 2;
@@ -81,8 +109,15 @@ class ApiRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testGetList_WithZeroCount_ReturnsEmptyData()
     {
-        $apiQuery = $this->getMock('\ApiFoo\Api\ApiRepository', ['executeCountQuery'], [], '', false);
-        $apiRequest = $this->getMock('\ApiFoo\Api\ApiRequest', null, [], '', false);
+        $apiQuery = $this->getMockBuilder('\ApiFoo\Api\ApiRepository')
+            ->setMethods(['executeCountQuery'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $apiRequest = $this->getMockBuilder('\ApiFoo\Api\ApiRequest')
+            ->setMethods(null)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $expected = [
             'data' => [],
@@ -98,8 +133,15 @@ class ApiRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testGetList_WithNonZeroCount_ReturnsData()
     {
-        $apiQuery = $this->getMock('\ApiFoo\Api\ApiRepository', ['executeCountQuery', 'executeIdsQuery', 'executeListQuery'], [], '', false);
-        $apiRequest = $this->getMock('\ApiFoo\Api\ApiRequest', ['getPageSize'], [], '', false);
+        $apiQuery = $this->getMockBuilder('\ApiFoo\Api\ApiRepository')
+            ->setMethods(['executeCountQuery', 'executeIdsQuery', 'executeListQuery'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $apiRequest = $this->getMockBuilder('\ApiFoo\Api\ApiRequest')
+            ->setMethods(['getPageSize'])
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $data = [
             ['id' => 1, 'name' => 'test1'],
@@ -125,8 +167,15 @@ class ApiRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testGetItem_WithMultipleResults_ReturnsEmptyData()
     {
-        $apiQuery = $this->getMock('\ApiFoo\Api\ApiRepository', ['executeItemQuery'], [], '', false);
-        $apiRequest = $this->getMock('\ApiFoo\Api\ApiRequest', null, [], '', false);
+        $apiQuery = $this->getMockBuilder('\ApiFoo\Api\ApiRepository')
+            ->setMethods(['executeItemQuery'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $apiRequest = $this->getMockBuilder('\ApiFoo\Api\ApiRequest')
+            ->setMethods(null)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $data = [
             ['id' => 1, 'name' => 'test1'],
@@ -147,8 +196,15 @@ class ApiRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testGetItem_WithSingleResult_ReturnsData()
     {
-        $apiQuery = $this->getMock('\ApiFoo\Api\ApiRepository', ['executeItemQuery'], [], '', false);
-        $apiRequest = $this->getMock('\ApiFoo\Api\ApiRequest', null, [], '', false);
+        $apiQuery = $this->getMockBuilder('\ApiFoo\Api\ApiRepository')
+            ->setMethods(['executeItemQuery'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $apiRequest = $this->getMockBuilder('\ApiFoo\Api\ApiRequest')
+            ->setMethods(null)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $data = [
             ['id' => 1, 'name' => 'test1'],
@@ -168,8 +224,15 @@ class ApiRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testExecuteCountQuery_CallsMethodsAndReturnsCount()
     {
-        $apiQuery = $this->getMock('\ApiFoo\Api\ApiRepository', ['addFilterCriteria'], [$this->orm], '', true);
-        $apiRequest = $this->getMock('\ApiFoo\Api\ApiRequest', ['getFilters'], [], '', false);
+        $apiQuery = $this->getMockBuilder('\ApiFoo\Api\ApiRepository')
+            ->setMethods(['addFilterCriteria'])
+            ->setConstructorArgs([$this->orm])
+            ->getMock();
+
+        $apiRequest = $this->getMockBuilder('\ApiFoo\Api\ApiRequest')
+            ->setMethods(['getFilters'])
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->orm->method('executeQuery')->willReturn([['count' => 2]]);
         $apiRequest->method('getFilters')->willReturn([]);
@@ -182,8 +245,15 @@ class ApiRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testExecuteIdsQuery_CallsMethodsAndReturnsIds()
     {
-        $apiQuery = $this->getMock('\ApiFoo\Api\ApiRepository', ['addFilterCriteria', 'addSortCriteria', 'addPageCriteria'], [$this->orm], '', true);
-        $apiRequest = $this->getMock('\ApiFoo\Api\ApiRequest', ['getFilters', 'getSort', 'getPageSize', 'getPageNumber'], [], '', false);
+        $apiQuery = $this->getMockBuilder('\ApiFoo\Api\ApiRepository')
+            ->setMethods(['addFilterCriteria', 'addSortCriteria', 'addPageCriteria'])
+            ->setConstructorArgs([$this->orm])
+            ->getMock();
+
+        $apiRequest = $this->getMockBuilder('\ApiFoo\Api\ApiRequest')
+            ->setMethods(['getFilters', 'getSort', 'getPageSize', 'getPageNumber'])
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $data = [
             ['id' => 1, 'name' => 'test1'],
@@ -206,8 +276,15 @@ class ApiRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testExecuteListQuery_CallsMethodsAndReturnsResults()
     {
-        $apiQuery = $this->getMock('\ApiFoo\Api\ApiRepository', ['addSortCriteria'], [$this->orm], '', true);
-        $apiRequest = $this->getMock('\ApiFoo\Api\ApiRequest', ['getSort'], [], '', false);
+        $apiQuery = $this->getMockBuilder('\ApiFoo\Api\ApiRepository')
+            ->setMethods(['addSortCriteria'])
+            ->setConstructorArgs([$this->orm])
+            ->getMock();
+
+        $apiRequest = $this->getMockBuilder('\ApiFoo\Api\ApiRequest')
+            ->setMethods(['getSort'])
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $data = [
             ['id' => 1, 'name' => 'test1'],
@@ -225,8 +302,15 @@ class ApiRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testExecuteItemQuery_CallsMethodsAndReturnsResults()
     {
-        $apiQuery = $this->getMock('\ApiFoo\Api\ApiRepository', ['addFilterCriteria'], [$this->orm], '', true);
-        $apiRequest = $this->getMock('\ApiFoo\Api\ApiRequest', ['getFilters'], [], '', false);
+        $apiQuery = $this->getMockBuilder('\ApiFoo\Api\ApiRepository')
+            ->setMethods(['addFilterCriteria'])
+            ->setConstructorArgs([$this->orm])
+            ->getMock();
+
+        $apiRequest = $this->getMockBuilder('\ApiFoo\Api\ApiRequest')
+            ->setMethods(['getFilters'])
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $data = [
             ['id' => 1, 'name' => 'test1'],
