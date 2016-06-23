@@ -12,7 +12,7 @@ class ApiRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->orm = $this->getMock('\ApiFoo\Adapters\ORM\OrmInterface');
+        $this->orm = $this->getMock('\ApiFoo\Interfaces\OrmInterface');
         $this->repository = $this->getMock('Table', ['addNameFilter', 'addIdFilter', 'addNameSort', 'addIdSort'], [], 'TestRepository', false);
         $this->query = $this->getMock('Query', null, [], '', false);
     }

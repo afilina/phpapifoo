@@ -1,11 +1,11 @@
 <?php
-namespace ApiFoo\Adapters\Request\Cake;
+namespace ApiFoo\Adapters\Cake\V3_2;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\StreamInterface;
 
-class CakeRequest32 implements ServerRequestInterface
+class CakeRequest implements ServerRequestInterface
 {
     private $request;
 

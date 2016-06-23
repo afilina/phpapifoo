@@ -1,12 +1,12 @@
 <?php
-namespace ApiFoo\Adapters\ORM\Cake;
+namespace ApiFoo\Adapters\Cake\V3_2;
 
-use ApiFoo\Adapters\ORM\OrmInterface;
+use ApiFoo\Interfaces\OrmInterface;
 
 /**
  * Abstraction layer between the ORM and the ApiRepository that is in charge of issuing the queries.
  */
-class CakeOrm32 implements OrmInterface
+class CakeOrm implements OrmInterface
 {
     private $table;
 

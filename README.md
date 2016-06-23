@@ -21,17 +21,17 @@ The idea is to make it simple to drop the functionality into any codebase. This 
 
 ## Usage
 
-The first step is to wrap the request object in the framework's adapter, such as CakeRequest32 (CakePHP 3.2), then in an ApiRequest. The ApiRequest will extract pagination, sorting and filter information. This is what you would typically do in your controller:
+The first step is to wrap the request object in the framework's adapter, such as CakeRequest, then in an ApiRequest. The ApiRequest will extract pagination, sorting and filter information. This is what you would typically do in your controller:
 
 ```
-$apiRequest = new ApiRequest(new CakeRequest32($this->request));
+$apiRequest = new ApiRequest(new CakeRequest($this->request));
 ```
 
-The `CakeRequest32` wrapper will no longer be required once frameworks implement their request objects with PSR-7.
+The `CakeRequest` wrapper will no longer be required once frameworks implement their request objects with PSR-7.
 
-The second step is to wrap the repository/table in the framework's adapter, such as CakeOrm32, then in an ApiRepository. The ApiRepository will add parts to the query builder based on the ApiRequest object provided. This is what you would typically do in your repository/table:
+The second step is to wrap the repository/table in the framework's adapter, such as CakeOrm, then in an ApiRepository. The ApiRepository will add parts to the query builder based on the ApiRequest object provided. This is what you would typically do in your repository/table:
 ```
-$apiRepository = new ApiRepository(new CakeOrm32($this));
+$apiRepository = new ApiRepository(new CakeOrm($this));
 $results = $apiRepository->getList($query, $apiRequest);
 ```
 
@@ -100,14 +100,14 @@ Input for POST, PUT and PATCH operations should be provided using JSON directly 
 
 ### CakePHP 3.2
 
-This is an example of a controller and a table. Demo project: [afilina/cakeapifoo](https://github.com/afilina/cakeapifoo)
+This is an example of a controller and a table. Demo project: [afilina/cakeapifoo-demo](https://github.com/afilina/cakeapifoo-demo)
 
 ```
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
 
 use ApiFoo\Api\ApiRequest;
-use ApiFoo\Adapters\Request\Cake\CakeRequest32;
+use ApiFoo\Adapters\Cake\V3_2\CakeRequest;
 
 class GamesController extends AppController
 {
@@ -119,7 +119,7 @@ class GamesController extends AppController
 
     public function getList()
     {
-        $apiRequest = new ApiRequest(new CakeRequest32($this->request));
+        $apiRequest = new ApiRequest(new CakeRequest($this->request));
 
         $gamesTable = TableRegistry::get('Games');
         $response = $gamesTable->getApiList($apiRequest);
@@ -131,7 +131,7 @@ class GamesController extends AppController
 
 use ApiFoo\Api\ApiRepository;
 use ApiFoo\Api\ApiRequest;
-use ApiFoo\Adapters\ORM\Cake\CakeOrm32;
+use ApiFoo\Adapters\Cake\V3_2\CakeOrm;
 
 class GamesTable extends Table
 {
@@ -144,7 +144,7 @@ class GamesTable extends Table
             ->select(['root.id', 'root.title'])
         ;
 
-        $apiRepository = new ApiRepository(new CakeOrm32($this));
+        $apiRepository = new ApiRepository(new CakeOrm($this));
         $results = $apiRepository->getList($query, $apiRequest);
 
         return $results;

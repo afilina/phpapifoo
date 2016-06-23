@@ -1,5 +1,5 @@
 <?php
-namespace ApiFoo\Adapters\ORM;
+namespace ApiFoo\Interfaces;
 
 interface OrmInterface
 {

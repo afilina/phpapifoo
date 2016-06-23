@@ -1,11 +1,11 @@
 <?php
 
-use ApiFoo\Adapters\ORM\Cake\CakeOrm32;
+use ApiFoo\Adapters\Cake\V3_2\CakeOrm;
 
 /**
  * Integration tests for CakeORM version 3.2
  */
-class CakeOrm32Test extends \PHPUnit_Framework_TestCase
+class CakeOrmTest extends \PHPUnit_Framework_TestCase
 {
     private $table;
     private $query;
@@ -31,7 +31,7 @@ class CakeOrm32Test extends \PHPUnit_Framework_TestCase
 
     public function testGetCountQuery_ReturnsDistinctCountSql()
     {
-        $orm = new CakeOrm32($this->table);
+        $orm = new CakeOrm($this->table);
 
         $query = $orm->getCountQuery();
         $this->assertEquals('SELECT DISTINCT (COUNT(root.id)) AS "count" FROM table_name root', $query->sql());
@@ -39,7 +39,7 @@ class CakeOrm32Test extends \PHPUnit_Framework_TestCase
 
     public function testGetIdsQuery_ReturnsDistinctIdSql()
     {
-        $orm = new CakeOrm32($this->table);
+        $orm = new CakeOrm($this->table);
 
         $query = $orm->getIdsQuery();
         $this->assertEquals('SELECT DISTINCT root.id AS "root__id" FROM table_name root', $query->sql());
@@ -47,7 +47,7 @@ class CakeOrm32Test extends \PHPUnit_Framework_TestCase
 
     public function testGetListQuery_ReturnsWhereIdInSql()
     {
-        $orm = new CakeOrm32($this->table);
+        $orm = new CakeOrm($this->table);
         $query = $this->table->query()
             ->select(['root.id']);
 
@@ -57,7 +57,7 @@ class CakeOrm32Test extends \PHPUnit_Framework_TestCase
 
     public function testGetItemQuery_ReturnsWhereEqualsIdSql()
     {
-        $orm = new CakeOrm32($this->table);
+        $orm = new CakeOrm($this->table);
         $query = $this->table->query()
             ->select(['root.id'])
             ->where(['id' => 1]);
@@ -68,7 +68,7 @@ class CakeOrm32Test extends \PHPUnit_Framework_TestCase
 
     public function testExecuteQuery_WithoutHydration_ReturnsArray()
     {
-        $orm = new CakeOrm32($this->table);
+        $orm = new CakeOrm($this->table);
         $query = $this->table->query()
             ->select(['root.id'])
             ->hydrate(false)
@@ -81,7 +81,7 @@ class CakeOrm32Test extends \PHPUnit_Framework_TestCase
 
     public function testGetRepositoryFromQuery_ReturnsTable()
     {
-        $orm = new CakeOrm32($this->table);
+        $orm = new CakeOrm($this->table);
         $query = $this->table->query();
 
         $result = $orm->getRepositoryFromQuery($query);
@@ -90,7 +90,7 @@ class CakeOrm32Test extends \PHPUnit_Framework_TestCase
 
     public function testSetPagination_AddsClauses()
     {
-        $orm = new CakeOrm32($this->table);
+        $orm = new CakeOrm($this->table);
         $query = $this->table->query();
 
         $orm->setPagination($query, 5, 2);

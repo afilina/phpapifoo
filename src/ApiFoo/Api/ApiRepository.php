@@ -1,7 +1,7 @@
 <?php
 namespace ApiFoo\Api;
 
-use \ApiFoo\Adapters\ORM\OrmInterface;
+use \ApiFoo\Interfaces\OrmInterface;
 use \ApiFoo\Api\ApiRequest;
 
 class ApiRepository
