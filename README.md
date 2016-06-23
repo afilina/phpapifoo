@@ -11,7 +11,7 @@ composer require afilina/phpapifoo dev-master
 
 ## How is this different from framework-specific plugins?
 
-The idea is for you to be able to use your framework of choice. This package doesn't do too much magic, meaning that it's as simple as instantiating a few classes to offload some of the boilerplate, but without creating complicated abstraction layers. It also does a good job at keeping all your application logic right where you would expect it, incontrollers and repositories, as opposed to configuration files and listeners.
+The idea is for you to be able to use your framework of choice. This package doesn't do too much magic, meaning that it's as simple as instantiating a few classes to offload some of the boilerplate, but without creating complicated abstraction layers. This approach is meant to lower the barrier to entry. It also does a good job at keeping all your application logic right where you would expect it, incontrollers and repositories, as opposed to configuration files and listeners.
 
 The examples will speak for themselves.
 
